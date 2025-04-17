@@ -30,18 +30,24 @@ function Router() {
   );
 }
 
-function App() {
+function AppWithContext() {
   const { fetchCurrentUser } = useAppContext();
 
   useEffect(() => {
     fetchCurrentUser();
   }, [fetchCurrentUser]);
 
+  return <Router />;
+}
+
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <AppProvider>
+          <AppWithContext />
+        </AppProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
